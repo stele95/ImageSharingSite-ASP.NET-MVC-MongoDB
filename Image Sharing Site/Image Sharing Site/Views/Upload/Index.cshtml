@@ -1,0 +1,24 @@
+﻿@{ 
+    ViewBag.Title = "Upload";
+}
+
+
+<div class="jumbotron jumbotron-custom">
+    <h1 style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 27px; text-align: center;">Share some images with the world, or just keep them for yourself.</h1>
+    <p class="lead"></p>
+    <form action="/Upload/UploadImage" method="post" class="form-group" runat="server" enctype="multipart/form-data">
+        <input class="form-control" value="Upload" name="file" type="file" style="margin: 0 auto; margin-bottom: 10px;" />
+        @{ if (Request.Cookies.Count > 0)
+            {
+        <div style="margin-bottom: 10px;">
+            <select id="selectvis" name="visability" style="align-self:center">
+                <option value="private">private</option>
+                <option value="public" selected="selected">public</option>
+            </select>
+        </div>
+            }
+        }
+        <input class="form-control btn btn-primary" value="Upload" type="submit" />
+        </form>
+    <p class="text-muted"><i class="fa fa-info-circle" aria-hidden="true"></i> Registered users have more privileges.</p>
+</div>

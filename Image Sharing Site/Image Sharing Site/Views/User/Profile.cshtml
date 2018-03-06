@@ -1,0 +1,53 @@
+﻿
+@{    
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutDarkNav.cshtml";
+
+}
+<div class="container">
+    <div class="row flex-column" style="margin-top: 100px;">
+        <div class="row flex-row">
+            
+            <h3 style="margin: 0 20px;">
+                @Model.FirstName @Model.LastName <br /><i class="text-muted">(@Model.Username)</i>
+            </h3><br />
+            <span class="text-muted">Profile ID: @Model._id.ToString()</span>
+            <form method="POST" action="/User/DeleteAccount" class="form-group">                
+                <input type="hidden" name="userid" value="@Model._id" />
+                <input type="submit" class="btn btn-danger btn-sm float-left" value="Delete Account" style="position: relative; top: 30px; left: -260px;" />
+            </form>
+        </div>
+        <h5>Uploads</h5>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Name</th>
+                    <th scope="col" class="text-center">Visibility</th>
+                    <th scope="col" class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var i = 0;}
+                @foreach (var obj in @Model.Uploads)
+                {
+                <tr class="table-light">
+                    <td class="text-center">@obj._id</td>
+                    <td class="text-center">@obj.Name</td>
+                    @if (obj.Visibility)
+                    {
+                    <td class="text-center">Public</td>
+                    }
+                    else
+                    { 
+                    <td class="text-center">Private</td>
+                    }
+                    <td><a href="/Upload/Remove?_id=@obj._id&userId=@Model._id"><i class="fas fa-trash"></i></a></td>
+                </tr>
+
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

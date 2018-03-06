@@ -1,0 +1,65 @@
+﻿@{
+    var message = "";
+    if (Request.Cookies.Count == 0)
+    {
+        message = "Welcome, guest";
+    }
+    else
+    {
+        message = "Welcome, " + Request.Cookies[0]["username"];
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: transparent;">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link account" href="/">Home</a>
+                </li>
+                @{ if (Request.Cookies.Count == 0)
+                    {
+            <li class="nav-item">
+                <a class="nav-link account" href="/User?login=true">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link account" href="/User?register=true">Register</a>
+            </li>
+                        }
+                    }
+            <li class="nav-item">
+                <a class="nav-link account" href="/Upload">Upload</a>
+            </li>
+            </ul>
+            <span class="text-white" style="margin: 0px 10px;">@message</span>
+            @{ if (Request.Cookies.Count > 0)
+                {
+            <a href="/User/Profile" class="btn btn-outline-secondary" style="font-size: 8px;">Go To Profile</a>
+            <a href="/User/Logout" style="margin: 0px 10px; font-size: 8px;" class="btn btn-outline-danger">Sign out</a>
+                    }
+                }   
+            
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/app.js")
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
